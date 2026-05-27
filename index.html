@@ -24,6 +24,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden;}
+
+/* ── APP SHELL ── */
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh;}
 #statusbar{height:var(--safe-top);background:var(--bg);flex-shrink:0;}
 .header{padding:12px 20px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
@@ -40,6 +42,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
 .page{display:none;padding:0 0 20px;}
 .page.active{display:block;}
+
+/* ── SAISIE ── */
 .month-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 20px 14px;}
 .month-nav-btn{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:0.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text);}
 .month-nav-btn:active{transform:scale(0.92);}
@@ -75,43 +79,53 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .input-row label{font-size:13px;color:var(--text2);flex:1;}
 .amount-input{background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:8px 12px;font-size:16px;font-weight:500;color:var(--text);width:130px;text-align:right;-webkit-appearance:none;outline:none;}
 .amount-input:focus{border-color:var(--green);}
+
+/* ── COMMENTAIRES ── */
 .comments-section{border-top:0.5px solid var(--border);padding:10px 16px 12px;}
 .comments-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .comments-label{font-size:12px;color:var(--text2);font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
 .add-comment-btn{font-size:12px;color:var(--green);background:none;border:0.5px solid rgba(0,217,126,0.3);border-radius:6px;padding:3px 10px;cursor:pointer;}
-.comment-item{display:flex;align-items:center;gap:8px;background:var(--bg3);border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:6px;border:0.5px solid var(--border);}
+.comment-item{display:flex;align-items:flex-start;gap:8px;background:var(--bg3);border-radius:var(--radius-sm);padding:9px 10px;margin-bottom:6px;border:0.5px solid var(--border);}
 .comment-texts{flex:1;min-width:0;}
 .comment-shop{font-size:14px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.comment-meta{font-size:12px;color:var(--text2);margin-top:1px;}
-.comment-del{color:var(--text3);font-size:16px;cursor:pointer;padding:2px 6px;flex-shrink:0;}
+.comment-meta{font-size:12px;color:var(--text2);margin-top:2px;}
+.comment-date{font-size:11px;color:var(--text3);margin-top:2px;}
+.comment-del{color:var(--text3);font-size:16px;cursor:pointer;padding:2px 6px;flex-shrink:0;margin-top:-1px;}
 .comment-del:active{color:var(--red);}
 .comment-total-tag{font-size:11px;color:var(--text2);text-align:right;margin-top:6px;}
+
+/* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:300;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .25s;}
 .modal-overlay.open{opacity:1;pointer-events:all;}
 .modal{background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;padding:20px 20px calc(20px + var(--safe-bottom));width:100%;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);border-top:0.5px solid var(--border2);}
 .modal-overlay.open .modal{transform:translateY(0);}
 .modal-title{font-size:18px;font-weight:700;margin-bottom:4px;}
-.modal-sub{font-size:13px;color:var(--text2);margin-bottom:20px;}
-.modal-field{margin-bottom:14px;}
-.modal-field label{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;}
-.modal-input{width:100%;background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:12px 14px;color:var(--text);font-size:16px;outline:none;-webkit-appearance:none;}
+.modal-sub{font-size:13px;color:var(--text2);margin-bottom:18px;}
+.modal-field{margin-bottom:12px;}
+.modal-field label{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;}
+.modal-input{width:100%;background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:11px 14px;color:var(--text);font-size:16px;outline:none;-webkit-appearance:none;}
 .modal-input:focus{border-color:var(--green);}
-.modal-btns{display:flex;gap:10px;margin-top:20px;}
+.modal-btns{display:flex;gap:10px;margin-top:18px;}
 .modal-btn{flex:1;padding:14px;border-radius:var(--radius);border:none;cursor:pointer;font-size:16px;font-weight:600;}
 .modal-btn.cancel{background:var(--bg3);color:var(--text2);}
 .modal-btn.confirm{background:var(--green);color:#000;}
 .modal-btn:active{opacity:0.8;}
-.save-btn{margin:16px;width:calc(100% - 32px);padding:16px;background:var(--green);color:#000;font-size:17px;font-weight:700;border-radius:var(--radius);border:none;cursor:pointer;letter-spacing:-0.3px;}
+
+/* ── BUTTONS ── */
+.save-btn{margin:16px;width:calc(100% - 32px);padding:16px;background:var(--green);color:#000;font-size:17px;font-weight:700;border-radius:var(--radius);border:none;cursor:pointer;}
 .save-btn:active{opacity:0.8;}
 .save-btn:disabled{opacity:0.5;}
+
+/* ── TOAST ── */
 .toast{position:fixed;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg3);color:var(--text);padding:12px 20px;border-radius:24px;font-size:14px;font-weight:500;border:0.5px solid var(--border2);opacity:0;transition:all .3s;z-index:400;white-space:nowrap;pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── CONFIG ── */
 .cfg-section{margin:0 16px 16px;background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);overflow:hidden;}
 .cfg-row{display:flex;align-items:center;padding:14px 16px;border-bottom:0.5px solid var(--border);}
 .cfg-row:last-child{border-bottom:none;}
 .cfg-row-label{flex:1;font-size:15px;}
 .cfg-row-sub{font-size:12px;color:var(--text2);margin-top:1px;}
-.cfg-val{color:var(--blue);font-size:15px;font-weight:600;}
 .cfg-input{background:transparent;border:none;color:var(--blue);font-size:15px;font-weight:600;text-align:right;outline:none;width:120px;-webkit-appearance:none;}
 select.cfg-input{appearance:none;}
 .cfg-cat-row{display:flex;align-items:center;padding:12px 16px;gap:10px;border-bottom:0.5px solid var(--border);}
@@ -126,8 +140,10 @@ select.cfg-input{appearance:none;}
 .pct-warn{background:var(--red-dim);color:var(--red);}
 .status-box{margin:0 16px 12px;padding:14px 16px;border-radius:var(--radius-sm);border:0.5px solid;}
 .status-box p{font-size:13px;line-height:1.5;}
-.big-input{width:100%;background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:11px 14px;color:var(--text);font-size:14px;margin-top:8px;outline:none;-webkit-appearance:none;word-break:break-all;}
+.big-input{width:100%;background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:11px 14px;color:var(--text);font-size:14px;margin-top:8px;outline:none;-webkit-appearance:none;}
 .big-input:focus{border-color:var(--green);}
+
+/* ── HISTORIQUE ── */
 .hist-card{margin:0 16px 10px;background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);padding:14px 16px;}
 .hist-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .hist-month{font-size:16px;font-weight:600;}
@@ -139,56 +155,74 @@ select.cfg-input{appearance:none;}
 .hist-details{margin-top:10px;border-top:0.5px solid var(--border);padding-top:10px;display:none;}
 .hist-details.open{display:block;}
 .hist-cat-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--text2);}
-.hist-comment{font-size:11px;color:var(--text3);padding:1px 0 1px 14px;}
+.hist-comment{font-size:11px;color:var(--text3);padding:2px 0 2px 14px;}
 .hist-toggle{font-size:12px;color:var(--blue);cursor:pointer;margin-top:8px;display:inline-block;}
 .empty-state{padding:60px 20px;text-align:center;color:var(--text3);font-size:15px;line-height:1.8;}
 
-/* SETUP */
-#setup{position:fixed;inset:0;background:var(--bg);z-index:500;overflow-y:auto;padding:calc(var(--safe-top)+24px) 22px calc(var(--safe-bottom)+24px);}
-.s-logo{font-size:52px;margin-bottom:14px;}
-.s-title{font-size:26px;font-weight:800;letter-spacing:-0.8px;margin-bottom:8px;}
-.s-sub{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:28px;}
-.s-step{background:var(--bg2);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;border:0.5px solid var(--border);}
-.s-num{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;}
-.s-stitle{font-size:15px;font-weight:600;margin-bottom:6px;}
-.s-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+/* ── SETUP — VERSION LISIBLE ── */
+#setup{
+  position:fixed;inset:0;background:var(--bg);z-index:500;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(var(--safe-top)+20px) 0 calc(var(--safe-bottom)+24px);
+}
+.setup-inner{padding:0 20px;}
+.s-logo{font-size:48px;margin-bottom:12px;text-align:center;}
+.s-title{font-size:26px;font-weight:800;letter-spacing:-0.8px;margin-bottom:6px;text-align:center;}
+.s-sub{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:24px;text-align:center;}
+
+.s-step{background:var(--bg2);border-radius:var(--radius);margin-bottom:12px;border:0.5px solid var(--border);overflow:hidden;}
+.s-step-header{padding:14px 16px 0;}
+.s-num{font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.s-stitle{font-size:16px;font-weight:700;margin-bottom:8px;}
+.s-desc{font-size:14px;color:var(--text2);line-height:1.65;padding:0 16px 14px;}
 .s-desc a{color:var(--blue);text-decoration:none;}
 .s-desc b{color:var(--text);}
-.s-input{width:100%;background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:11px 14px;color:var(--text);font-size:14px;margin-top:10px;outline:none;-webkit-appearance:none;}
+
+.s-sql-wrap{margin:0 16px 14px;background:var(--bg3);border-radius:10px;border:0.5px solid var(--border2);overflow:hidden;}
+.s-sql{padding:12px 14px;font-family:'Courier New',monospace;font-size:12px;color:#a8ff78;line-height:1.8;white-space:pre;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.copy-btn{width:100%;padding:11px;background:rgba(77,159,255,0.15);border:none;border-top:0.5px solid var(--border2);color:var(--blue);font-size:14px;font-weight:600;cursor:pointer;text-align:center;}
+.copy-btn:active{background:rgba(77,159,255,0.25);}
+
+.s-inputs{padding:0 16px 14px;display:flex;flex-direction:column;gap:10px;}
+.s-input-wrap{display:flex;flex-direction:column;gap:5px;}
+.s-input-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.6px;}
+.s-input{width:100%;background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:12px 14px;color:var(--text);font-size:15px;outline:none;-webkit-appearance:none;}
 .s-input:focus{border-color:var(--green);}
-.s-btn{width:100%;padding:16px;background:var(--green);color:#000;font-size:17px;font-weight:700;border-radius:var(--radius);border:none;cursor:pointer;margin-top:18px;letter-spacing:-0.3px;}
+
+.s-btn{margin:4px 20px 0;width:calc(100% - 40px);padding:16px;background:var(--green);color:#000;font-size:17px;font-weight:700;border-radius:var(--radius);border:none;cursor:pointer;display:block;}
 .s-btn:active{opacity:0.85;}
-.s-skip{width:100%;padding:10px;background:none;color:var(--text2);font-size:14px;border:none;cursor:pointer;margin-top:6px;}
-.s-sql{background:var(--bg3);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;color:var(--green);line-height:1.8;margin-top:10px;border:0.5px solid var(--border2);word-break:break-word;}
-.copy-btn{width:100%;padding:9px;background:var(--bg3);border:0.5px solid var(--border2);border-radius:8px;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer;text-align:center;margin-top:6px;}
+.s-skip{width:100%;padding:12px;background:none;color:var(--text2);font-size:14px;border:none;cursor:pointer;margin-top:4px;display:block;text-align:center;}
 </style>
 </head>
 <body>
 
-<!-- SETUP -->
+<!-- ═══════════════════════════════════════════════════════ SETUP -->
 <div id="setup">
+<div class="setup-inner">
   <div class="s-logo">💰</div>
   <div class="s-title">Budget Familial</div>
-  <div class="s-sub">Connexion à Supabase pour une synchronisation fiable entre vos deux iPhones.</div>
+  <div class="s-sub">Connectez Supabase pour synchroniser vos données entre vos deux iPhones.</div>
 
   <div class="s-step">
-    <div class="s-num">Étape 1 — Supabase</div>
-    <div class="s-stitle">Créer le projet</div>
+    <div class="s-step-header">
+      <div class="s-num">Étape 1</div>
+      <div class="s-stitle">Créer le projet Supabase</div>
+    </div>
     <div class="s-desc">
-      Allez sur <a href="https://supabase.com" target="_blank">supabase.com</a> → <b>Start for free</b> → connectez-vous avec Google.<br><br>
+      Rendez-vous sur <a href="https://supabase.com" target="_blank">supabase.com</a> → <b>Start for free</b> → connectez-vous avec Google.<br><br>
       Cliquez <b>New project</b> → nom : <b>budget-familial</b> → région <b>West EU (Ireland)</b> → <b>Create project</b>.<br><br>
-      Attendez ~1 minute que le projet soit prêt.
+      Attendez environ 1 minute que le projet soit prêt.
     </div>
   </div>
 
   <div class="s-step">
-    <div class="s-num">Étape 2 — Base de données</div>
-    <div class="s-stitle">Créer les tables</div>
-    <div class="s-desc">
-      Dans votre projet Supabase → menu gauche <b>SQL Editor</b> → <b>New query</b>.<br>
-      Collez ce code SQL et cliquez <b>Run</b> :
+    <div class="s-step-header">
+      <div class="s-num">Étape 2</div>
+      <div class="s-stitle">Créer les tables (SQL Editor)</div>
     </div>
-    <div class="s-sql" id="sql-code">create table if not exists budget_config (
+    <div class="s-desc">Dans votre projet → menu gauche <b>SQL Editor</b> → <b>New query</b>.<br>Collez le code ci-dessous et cliquez <b>Run</b> :</div>
+    <div class="s-sql-wrap">
+      <div class="s-sql" id="sql-code">create table if not exists budget_config (
   id text primary key default 'main',
   budget numeric default 1000,
   currency text default 'CHF',
@@ -204,27 +238,38 @@ create table if not exists budget_months (
 );
 alter table budget_config enable row level security;
 alter table budget_months enable row level security;
-create policy "public_all" on budget_config for all using (true) with check (true);
-create policy "public_all" on budget_months for all using (true) with check (true);</div>
-    <button class="copy-btn" onclick="copySql()">📋 Copier le SQL</button>
+create policy "allow_all" on budget_config
+  for all to anon using (true) with check (true);
+create policy "allow_all" on budget_months
+  for all to anon using (true) with check (true);</div>
+      <button class="copy-btn" onclick="copySql()">📋 Copier le SQL</button>
+    </div>
   </div>
 
   <div class="s-step">
-    <div class="s-num">Étape 3 — Clés API</div>
-    <div class="s-stitle">Récupérer les informations de connexion</div>
-    <div class="s-desc">
-      Dans Supabase → <b>Settings</b> (icône ⚙️ en bas à gauche) → <b>API</b>.<br><br>
-      Copiez <b>Project URL</b> et <b>anon public</b> key ci-dessous :
+    <div class="s-step-header">
+      <div class="s-num">Étape 3</div>
+      <div class="s-stitle">Vos clés API Supabase</div>
     </div>
-    <input class="s-input" id="s-url" type="url" placeholder="https://xxxx.supabase.co" autocapitalize="off" spellcheck="false">
-    <input class="s-input" id="s-key" type="text" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." autocapitalize="off" spellcheck="false" style="margin-top:8px">
+    <div class="s-desc">Dans Supabase → <b>Settings ⚙️</b> (bas à gauche) → <b>API</b>.<br>Copiez <b>Project URL</b> et <b>anon public</b> key :</div>
+    <div class="s-inputs">
+      <div class="s-input-wrap">
+        <div class="s-input-label">Project URL</div>
+        <input class="s-input" id="s-url" type="url" placeholder="https://xxxx.supabase.co" autocapitalize="off" spellcheck="false" autocorrect="off">
+      </div>
+      <div class="s-input-wrap">
+        <div class="s-input-label">Anon Public Key</div>
+        <input class="s-input" id="s-key" type="text" placeholder="eyJhbGciOiJIUzI1NiIs…" autocapitalize="off" spellcheck="false" autocorrect="off">
+      </div>
+    </div>
   </div>
+</div>
 
   <button class="s-btn" onclick="finishSetup()">✓ Connecter et démarrer</button>
   <button class="s-skip" onclick="skipSetup()">Utiliser sans synchronisation →</button>
 </div>
 
-<!-- APP -->
+<!-- ═══════════════════════════════════════════════════════ APP -->
 <div id="app" style="display:none">
   <div id="statusbar"></div>
   <div class="header">
@@ -287,22 +332,20 @@ create policy "public_all" on budget_months for all using (true) with check (tru
           </select>
         </div>
       </div>
-
-      <div class="section-header">Synchronisation</div>
+      <div class="section-header">Synchronisation Supabase</div>
       <div class="status-box" id="status-box" style="background:var(--blue-dim);border-color:rgba(77,159,255,0.3)">
         <p id="status-txt" style="color:var(--blue)">—</p>
       </div>
       <div class="cfg-section">
         <div class="cfg-row" style="flex-direction:column;align-items:stretch;gap:6px">
           <div class="cfg-row-label">Project URL</div>
-          <input class="big-input" id="cfg-url" type="url" autocapitalize="off" spellcheck="false">
+          <input class="big-input" id="cfg-url" type="url" autocapitalize="off" spellcheck="false" autocorrect="off">
         </div>
         <div class="cfg-row" style="flex-direction:column;align-items:stretch;gap:6px;border-top:0.5px solid var(--border)">
           <div class="cfg-row-label">Anon Key</div>
-          <input class="big-input" id="cfg-key" type="text" autocapitalize="off" spellcheck="false">
+          <input class="big-input" id="cfg-key" type="text" autocapitalize="off" spellcheck="false" autocorrect="off">
         </div>
       </div>
-
       <div class="section-header">Catégories</div>
       <div class="cfg-section" id="cfg-cats"></div>
       <button class="add-cat-btn" onclick="addCat()">+ Ajouter une catégorie</button>
@@ -318,14 +361,14 @@ create policy "public_all" on budget_months for all using (true) with check (tru
   </nav>
 </div>
 
-<!-- MODAL -->
+<!-- ═══════════════════════════════════════════════════════ MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOut(event)">
   <div class="modal">
     <div class="modal-title">Ajouter une dépense</div>
     <div class="modal-sub" id="modal-cat-name">—</div>
     <div class="modal-field">
       <label>Magasin / lieu *</label>
-      <input class="modal-input" id="m-shop" type="text" placeholder="Migros, Zara, Shell…" autocomplete="off">
+      <input class="modal-input" id="m-shop" type="text" placeholder="Migros, Zara, Shell…" autocomplete="off" autocorrect="off">
     </div>
     <div class="modal-field">
       <label>Montant (optionnel)</label>
@@ -333,7 +376,7 @@ create policy "public_all" on budget_months for all using (true) with check (tru
     </div>
     <div class="modal-field">
       <label>Note (optionnel)</label>
-      <input class="modal-input" id="m-note" type="text" placeholder="courses semaine, habits été…">
+      <input class="modal-input" id="m-note" type="text" placeholder="courses semaine, habits été…" autocorrect="off">
     </div>
     <div class="modal-btns">
       <button class="modal-btn cancel" onclick="closeModal()">Annuler</button>
@@ -345,19 +388,14 @@ create policy "public_all" on budget_months for all using (true) with check (tru
 <div class="toast" id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────────────────────────────────────────
-// CONSTANTES
-// ─────────────────────────────────────────────────────────────────────────────
 const MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const MONTHS_SHORT=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
 const COLORS=['#00d97e','#4d9fff','#ff6b35','#ff4d9d','#ffaa00','#a78bfa','#34d399','#f87171','#60a5fa','#fbbf24'];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// STATE — tout en mémoire, persisté localement, synchronisé avec Supabase
-// ─────────────────────────────────────────────────────────────────────────────
-let cfg = {
-  budget: 1000,
-  currency: 'CHF',
-  categories: [
+// ── STATE ──────────────────────────────────────────────────────────────────
+let cfg={
+  budget:1000, currency:'CHF',
+  categories:[
     {id:'1',name:'Courses',pct:30,color:'#00d97e'},
     {id:'2',name:'Essence',pct:20,color:'#4d9fff'},
     {id:'3',name:'Shopping',pct:15,color:'#ff6b35'},
@@ -366,282 +404,243 @@ let cfg = {
     {id:'6',name:'Divers',pct:10,color:'#a78bfa'},
   ]
 };
+let months={};
+let conn={url:'',key:''};
+let curYear=new Date().getFullYear();
+let curMonth=new Date().getMonth();
+let modalCatId=null;
 
-// months: { "2025-05": { "1": {amount:0, comments:[]}, ... } }
-let months = {};
-
-let conn = { url:'', key:'' }; // Supabase credentials
-let curYear = new Date().getFullYear();
-let curMonth = new Date().getMonth();
-let modalCatId = null;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// LOCAL STORAGE
-// ─────────────────────────────────────────────────────────────────────────────
-function persist() {
-  try {
-    localStorage.setItem('bf_conn', JSON.stringify(conn));
-    localStorage.setItem('bf_cfg', JSON.stringify(cfg));
-    localStorage.setItem('bf_months', JSON.stringify(months));
-    localStorage.setItem('bf_nav', JSON.stringify({y:curYear,m:curMonth}));
-  } catch(e) {}
+// ── PERSISTANCE ────────────────────────────────────────────────────────────
+function persist(){
+  try{
+    localStorage.setItem('bf_conn',JSON.stringify(conn));
+    localStorage.setItem('bf_cfg',JSON.stringify(cfg));
+    localStorage.setItem('bf_months',JSON.stringify(months));
+    localStorage.setItem('bf_nav',JSON.stringify({y:curYear,m:curMonth}));
+  }catch(e){}
+}
+function hydrate(){
+  try{
+    const c=localStorage.getItem('bf_conn'); if(c)conn=JSON.parse(c);
+    const g=localStorage.getItem('bf_cfg'); if(g)cfg=JSON.parse(g);
+    const mo=localStorage.getItem('bf_months'); if(mo)months=JSON.parse(mo);
+    const nav=localStorage.getItem('bf_nav'); if(nav){const n=JSON.parse(nav);curYear=n.y;curMonth=n.m;}
+  }catch(e){}
 }
 
-function hydrate() {
-  try {
-    const c = localStorage.getItem('bf_conn');
-    if (c) conn = JSON.parse(c);
-    const g = localStorage.getItem('bf_cfg');
-    if (g) cfg = JSON.parse(g);
-    const mo = localStorage.getItem('bf_months');
-    if (mo) months = JSON.parse(mo);
-    const nav = localStorage.getItem('bf_nav');
-    if (nav) { const n=JSON.parse(nav); curYear=n.y; curMonth=n.m; }
-  } catch(e) {}
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// SUPABASE API — fetch direct, pas de SDK
-// ─────────────────────────────────────────────────────────────────────────────
-function sbHeaders() {
-  return {
-    'apikey': conn.key,
-    'Authorization': 'Bearer ' + conn.key,
-    'Content-Type': 'application/json',
-    'Prefer': 'return=representation'
-  };
-}
-
-async function sbGet(table, params='') {
-  const r = await fetch(conn.url+'/rest/v1/'+table+'?'+params, {
-    headers: sbHeaders()
-  });
-  if (!r.ok) throw new Error('GET '+table+' → '+r.status);
+// ── SUPABASE ───────────────────────────────────────────────────────────────
+function sbH(){return{'apikey':conn.key,'Authorization':'Bearer '+conn.key,'Content-Type':'application/json','Prefer':'return=representation'};}
+async function sbGet(table,params=''){
+  const r=await fetch(conn.url+'/rest/v1/'+table+'?'+params,{headers:sbH()});
+  if(!r.ok)throw new Error('GET '+table+' → HTTP '+r.status);
   return r.json();
 }
-
-async function sbUpsert(table, body) {
-  const r = await fetch(conn.url+'/rest/v1/'+table, {
-    method: 'POST',
-    headers: { ...sbHeaders(), 'Prefer': 'resolution=merge-duplicates,return=minimal' },
-    body: JSON.stringify(body)
+async function sbUpsert(table,body){
+  const r=await fetch(conn.url+'/rest/v1/'+table,{
+    method:'POST',
+    headers:{...sbH(),'Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify(body)
   });
-  if (!r.ok) {
-    const txt = await r.text();
-    throw new Error('UPSERT '+table+' → '+r.status+' '+txt);
+  if(!r.ok){const t=await r.text();throw new Error('UPSERT '+table+' → '+r.status+' '+t);}
+}
+
+// ── SYNC CONFIG ────────────────────────────────────────────────────────────
+async function pushCfg(){
+  await sbUpsert('budget_config',{id:'main',budget:cfg.budget,currency:cfg.currency,categories:cfg.categories});
+}
+async function pullCfg(){
+  const rows=await sbGet('budget_config','id=eq.main&select=*');
+  if(rows&&rows.length>0){
+    const r=rows[0];
+    cfg.budget=parseFloat(r.budget)||cfg.budget;
+    cfg.currency=r.currency||cfg.currency;
+    if(Array.isArray(r.categories)&&r.categories.length>0)cfg.categories=r.categories;
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SYNC CONFIG
-// ─────────────────────────────────────────────────────────────────────────────
-async function pushCfg() {
-  await sbUpsert('budget_config', {
-    id: 'main',
-    budget: cfg.budget,
-    currency: cfg.currency,
-    categories: cfg.categories
-  });
-}
-
-async function pullCfg() {
-  const rows = await sbGet('budget_config', 'id=eq.main&select=*');
-  if (rows && rows.length > 0) {
-    const r = rows[0];
-    cfg.budget = parseFloat(r.budget) || cfg.budget;
-    cfg.currency = r.currency || cfg.currency;
-    if (Array.isArray(r.categories) && r.categories.length > 0) {
-      cfg.categories = r.categories;
-    }
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// SYNC MONTHS
-// ─────────────────────────────────────────────────────────────────────────────
-async function pushMonthRows(monthKey) {
-  const m = months[monthKey] || {};
-  const rows = Object.keys(m).map(catId => ({
-    month_key: monthKey,
-    cat_id: catId,
-    amount: m[catId].amount || 0,
-    comments: m[catId].comments || [],
-    updated_at: new Date().toISOString()
+// ── SYNC MONTHS ────────────────────────────────────────────────────────────
+async function pushMonthRows(monthKey){
+  const m=months[monthKey]||{};
+  const rows=Object.keys(m).map(catId=>({
+    month_key:monthKey, cat_id:catId,
+    amount:m[catId].amount||0,
+    comments:m[catId].comments||[],
+    updated_at:new Date().toISOString()
   }));
-  if (rows.length > 0) await sbUpsert('budget_months', rows);
+  if(rows.length>0)await sbUpsert('budget_months',rows);
 }
-
-async function pullAllMonths() {
-  const rows = await sbGet('budget_months', 'select=month_key,cat_id,amount,comments&order=month_key.asc');
-  if (!Array.isArray(rows)) return;
-  // Reconstruire l'objet months depuis les lignes Supabase
-  const fresh = {};
-  rows.forEach(r => {
-    const mk = r.month_key;
-    if (!mk || !/^\d{4}-\d{2}$/.test(mk)) return;
-    if (!fresh[mk]) fresh[mk] = {};
-    fresh[mk][String(r.cat_id)] = {
-      amount: parseFloat(r.amount) || 0,
-      comments: Array.isArray(r.comments) ? r.comments : []
+async function pullAllMonths(){
+  const rows=await sbGet('budget_months','select=month_key,cat_id,amount,comments&order=month_key.asc');
+  if(!Array.isArray(rows))return;
+  const fresh={};
+  rows.forEach(r=>{
+    const mk=r.month_key;
+    if(!mk||!/^\d{4}-\d{2}$/.test(mk))return;
+    if(!fresh[mk])fresh[mk]={};
+    fresh[mk][String(r.cat_id)]={
+      amount:parseFloat(r.amount)||0,
+      comments:Array.isArray(r.comments)?r.comments:[]
     };
   });
-  months = fresh;
+  months=fresh;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SYNC COMPLET
-// ─────────────────────────────────────────────────────────────────────────────
-async function syncAll() {
-  if (!conn.url || !conn.key) { toast('⚠ Supabase non configuré'); return; }
-  const btn = document.getElementById('sync-btn');
-  btn.classList.add('syncing');
-  btn.style.color = 'var(--text2)';
-  try {
+// ── SYNC COMPLET ───────────────────────────────────────────────────────────
+async function syncAll(){
+  if(!conn.url||!conn.key){toast('⚠ Supabase non configuré');return;}
+  const btn=document.getElementById('sync-btn');
+  btn.classList.add('syncing');btn.style.color='var(--text2)';
+  try{
     await pullCfg();
     await pullAllMonths();
     persist();
-    btn.style.color = 'var(--green)';
-    const t = new Date().toLocaleTimeString('fr-CH',{hour:'2-digit',minute:'2-digit'});
-    document.getElementById('header-sub').textContent = '✓ Sync ' + t;
+    btn.style.color='var(--green)';
+    const t=new Date().toLocaleTimeString('fr-CH',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('header-sub').textContent='✓ Sync '+t;
     toast('✓ Synchronisé');
-    renderSaisie();
-    updateStatusBox();
-  } catch(e) {
+    renderSaisie();updateStatusBox();
+  }catch(e){
     console.error(e);
-    btn.style.color = 'var(--red)';
-    document.getElementById('header-sub').textContent = '⚠ Hors ligne';
+    btn.style.color='var(--red)';
+    document.getElementById('header-sub').textContent='⚠ Hors ligne';
     toast('❌ '+e.message);
   }
   btn.classList.remove('syncing');
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SETUP
-// ─────────────────────────────────────────────────────────────────────────────
-function copySql() {
-  const t = document.getElementById('sql-code').innerText;
+// ── SETUP ──────────────────────────────────────────────────────────────────
+function copySql(){
+  const t=document.getElementById('sql-code').innerText;
   navigator.clipboard.writeText(t)
-    .catch(() => { const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove(); });
+    .catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();});
   toast('✓ SQL copié !');
 }
-
-async function finishSetup() {
-  const url = document.getElementById('s-url').value.trim().replace(/\/$/, '');
-  const key = document.getElementById('s-key').value.trim();
-  if (!url.includes('supabase.co')) { toast('❌ URL invalide (doit contenir supabase.co)'); return; }
-  if (!key.startsWith('eyJ')) { toast('❌ Clé API invalide'); return; }
-  conn = { url, key };
-  persist();
-  // Test de connexion
+async function finishSetup(){
+  const url=document.getElementById('s-url').value.trim().replace(/\/$/,'');
+  const key=document.getElementById('s-key').value.trim();
+  if(!url.includes('supabase.co')){toast('❌ URL invalide (doit contenir supabase.co)');return;}
+  if(!key.startsWith('eyJ')){toast('❌ Clé API invalide');return;}
+  conn={url,key};persist();
   toast('⏳ Test de connexion…');
-  try {
-    await sbGet('budget_config', 'select=id&limit=1');
-    launchApp();
-    syncAll();
-  } catch(e) {
-    toast('❌ Connexion échouée : ' + e.message);
-  }
+  try{
+    await sbGet('budget_config','select=id&limit=1');
+    launchApp();syncAll();
+  }catch(e){toast('❌ Connexion échouée : '+e.message);}
+}
+function skipSetup(){persist();launchApp();}
+function launchApp(){
+  document.getElementById('setup').style.display='none';
+  document.getElementById('app').style.display='flex';
+  renderSaisie();updateStatusBox();
 }
 
-function skipSetup() { persist(); launchApp(); }
-
-function launchApp() {
-  document.getElementById('setup').style.display = 'none';
-  document.getElementById('app').style.display = 'flex';
-  renderSaisie();
-  updateStatusBox();
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// NAVIGATION
-// ─────────────────────────────────────────────────────────────────────────────
-function showPage(p) {
-  ['saisie','historique','config'].forEach(id => {
-    document.getElementById('page-'+id).classList.toggle('active', id===p);
-    document.getElementById('tab-'+id).classList.toggle('active', id===p);
+// ── NAVIGATION ─────────────────────────────────────────────────────────────
+function showPage(p){
+  ['saisie','historique','config'].forEach(id=>{
+    document.getElementById('page-'+id).classList.toggle('active',id===p);
+    document.getElementById('tab-'+id).classList.toggle('active',id===p);
   });
-  if (p==='saisie') renderSaisie();
-  if (p==='historique') renderHistory();
-  if (p==='config') renderConfig();
+  if(p==='saisie')renderSaisie();
+  if(p==='historique')renderHistory();
+  if(p==='config')renderConfig();
+}
+function changeMonth(d){
+  curMonth+=d;
+  if(curMonth>11){curMonth=0;curYear++;}
+  if(curMonth<0){curMonth=11;curYear--;}
+  persist();renderSaisie();
 }
 
-function changeMonth(d) {
-  curMonth += d;
-  if (curMonth > 11) { curMonth=0; curYear++; }
-  if (curMonth < 0)  { curMonth=11; curYear--; }
-  persist();
-  renderSaisie();
-}
+// ── DONNÉES ────────────────────────────────────────────────────────────────
+function mkKey(y,m){return y+'-'+String(m+1).padStart(2,'0');}
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DONNÉES MOIS
-// ─────────────────────────────────────────────────────────────────────────────
-function mkKey(y, m) { return y+'-'+String(m+1).padStart(2,'0'); }
-
-function catData(monthKey, catId) {
-  const id = String(catId);
-  if (!months[monthKey]) months[monthKey] = {};
-  if (!months[monthKey][id]) months[monthKey][id] = {amount:0, comments:[]};
-  const d = months[monthKey][id];
-  // migration format ancien
-  if (typeof d === 'number') months[monthKey][id] = {amount:d, comments:[]};
-  if (!months[monthKey][id].comments) months[monthKey][id].comments = [];
+function catData(monthKey,catId){
+  const id=String(catId);
+  if(!months[monthKey])months[monthKey]={};
+  if(!months[monthKey][id])months[monthKey][id]={amount:0,comments:[]};
+  const d=months[monthKey][id];
+  if(typeof d==='number')months[monthKey][id]={amount:d,comments:[]};
+  if(!months[monthKey][id].comments)months[monthKey][id].comments=[];
   return months[monthKey][id];
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// RENDU SAISIE
-// ─────────────────────────────────────────────────────────────────────────────
-function renderSaisie() {
-  const key = mkKey(curYear, curMonth);
-  document.getElementById('month-name').textContent = MONTHS[curMonth];
-  document.getElementById('month-year').textContent = curYear;
+// ── CALCUL TOTAL DEPUIS COMMENTAIRES ──────────────────────────────────────
+// Le montant "total dépensé" est TOUJOURS la somme des commentaires qui ont un montant,
+// ou le montant manuel si aucun commentaire n'a de montant.
+function computeTotal(cd){
+  const comments=cd.comments||[];
+  const withAmount=comments.filter(cm=>parseFloat(cm.amount)>0);
+  if(withAmount.length>0){
+    // Si des commentaires ont des montants → on somme ceux-ci
+    return withAmount.reduce((a,cm)=>a+(parseFloat(cm.amount)||0),0);
+  }
+  // Sinon on garde le montant saisi manuellement
+  return cd.amount||0;
+}
 
-  let spent = 0;
-  cfg.categories.forEach(c => { spent += catData(key, c.id).amount; });
-  const reste = cfg.budget - spent;
-  const pct = cfg.budget > 0 ? Math.round(spent/cfg.budget*100) : 0;
+// ── RENDU SAISIE ───────────────────────────────────────────────────────────
+function renderSaisie(){
+  const key=mkKey(curYear,curMonth);
+  document.getElementById('month-name').textContent=MONTHS[curMonth];
+  document.getElementById('month-year').textContent=curYear;
 
-  document.getElementById('kpi-budget').textContent = fmt(cfg.budget);
-  document.getElementById('kpi-spent').textContent = fmt(spent);
-  const rEl = document.getElementById('kpi-reste');
-  rEl.textContent = fmt(reste); rEl.className = 'kpi-value '+(reste>=0?'green':'red');
-  const pEl = document.getElementById('kpi-pct');
-  pEl.textContent = pct+'%'; pEl.className = 'kpi-value '+(pct>100?'red':pct>80?'amber':'green');
-  document.getElementById('bp-pct').textContent = pct+'%';
-  const fill = document.getElementById('bp-fill');
-  fill.style.width = Math.min(100,pct)+'%';
-  fill.style.background = pct>100?'var(--red)':pct>80?'var(--amber)':'var(--green)';
+  let spent=0;
+  cfg.categories.forEach(c=>{spent+=computeTotal(catData(key,c.id));});
+  const reste=cfg.budget-spent;
+  const pct=cfg.budget>0?Math.round(spent/cfg.budget*100):0;
 
-  const list = document.getElementById('cat-list');
-  list.innerHTML = '';
-  cfg.categories.forEach(c => {
-    const cd = catData(key, c.id);
-    const alloc = cfg.budget * c.pct / 100;
-    const s = cd.amount;
-    const r = alloc - s;
-    const cp = alloc > 0 ? Math.min(100, Math.round(s/alloc*100)) : 0;
-    const bc = cp>100?'var(--red)':cp>80?'var(--amber)':c.color;
-    const bb = cp>100?'var(--red-dim)':cp>80?'var(--amber-dim)':'rgba(255,255,255,0.06)';
-    const btc = cp>100?'var(--red)':cp>80?'var(--amber)':'var(--text2)';
-    const comments = cd.comments || [];
-    const cSum = comments.reduce((a,cm)=>a+(parseFloat(cm.amount)||0),0);
+  document.getElementById('kpi-budget').textContent=fmt(cfg.budget);
+  document.getElementById('kpi-spent').textContent=fmt(spent);
+  const rEl=document.getElementById('kpi-reste');
+  rEl.textContent=fmt(reste);rEl.className='kpi-value '+(reste>=0?'green':'red');
+  const pEl=document.getElementById('kpi-pct');
+  pEl.textContent=pct+'%';pEl.className='kpi-value '+(pct>100?'red':pct>80?'amber':'green');
+  document.getElementById('bp-pct').textContent=pct+'%';
+  const fill=document.getElementById('bp-fill');
+  fill.style.width=Math.min(100,pct)+'%';
+  fill.style.background=pct>100?'var(--red)':pct>80?'var(--amber)':'var(--green)';
 
-    let cHtml = comments.map((cm,idx) => {
-      const cAmt = parseFloat(cm.amount)||0;
-      const meta = [cm.note, cAmt>0?fmt(cAmt):''].filter(Boolean).join(' · ');
+  const list=document.getElementById('cat-list');
+  list.innerHTML='';
+  cfg.categories.forEach(c=>{
+    const cd=catData(key,c.id);
+    const alloc=cfg.budget*c.pct/100;
+    const s=computeTotal(cd); // BUG FIX: utilise computeTotal
+    const r=alloc-s;
+    const cp=alloc>0?Math.min(100,Math.round(s/alloc*100)):0;
+    const bc=cp>100?'var(--red)':cp>80?'var(--amber)':c.color;
+    const bb=cp>100?'var(--red-dim)':cp>80?'var(--amber-dim)':'rgba(255,255,255,0.06)';
+    const btc=cp>100?'var(--red)':cp>80?'var(--amber)':'var(--text2)';
+    const comments=cd.comments||[];
+    const cSum=comments.reduce((a,cm)=>a+(parseFloat(cm.amount)||0),0);
+    const hasAmounts=comments.some(cm=>parseFloat(cm.amount)>0);
+
+    let cHtml=comments.map((cm,idx)=>{
+      const cAmt=parseFloat(cm.amount)||0;
+      const meta=[cAmt>0?fmt(cAmt):'',cm.note].filter(Boolean).join(' · ');
+      const dateStr=cm.date?fmtDate(cm.date):'';
       return `<div class="comment-item">
         <div class="comment-texts">
           <div class="comment-shop">${esc(cm.shop)}</div>
           ${meta?`<div class="comment-meta">${esc(meta)}</div>`:''}
+          ${dateStr?`<div class="comment-date">📅 ${dateStr}</div>`:''}
         </div>
         <span class="comment-del" onclick="delComment('${key}','${c.id}',${idx})">✕</span>
       </div>`;
     }).join('');
 
-    const div = document.createElement('div');
-    div.className = 'cat-card';
-    div.innerHTML = `
+    // Champ montant manuel visible seulement si aucun commentaire avec montant
+    const manualInputHtml=!hasAmounts?`
+      <div class="input-row">
+        <label>Total dépensé</label>
+        <input class="amount-input" type="number" inputmode="decimal" min="0" step="0.01"
+          value="${cd.amount||''}" placeholder="0.00"
+          onchange="setAmount('${key}','${c.id}',this.value)">
+      </div>`:'';
+
+    const div=document.createElement('div');
+    div.className='cat-card';
+    div.innerHTML=`
       <div class="cat-top">
         <div class="cat-dot" style="background:${c.color}"></div>
         <div class="cat-name-lbl">${esc(c.name)}</div>
@@ -653,130 +652,130 @@ function renderSaisie() {
         <div class="cat-num"><div class="cat-num-label">Reste</div><div class="cat-num-val" style="color:${r>=0?c.color:'var(--red)'}">${fmt(r)}</div></div>
       </div>
       <div class="cat-track"><div class="cat-fill" style="width:${cp}%;background:${bc}"></div></div>
-      <div class="input-row">
-        <label>Total dépensé</label>
-        <input class="amount-input" type="number" inputmode="decimal" min="0" step="0.01"
-          value="${s||''}" placeholder="0.00"
-          onchange="setAmount('${key}','${c.id}',this.value)">
-      </div>
+      ${manualInputHtml}
       <div class="comments-section">
         <div class="comments-header">
           <span class="comments-label">Détail${comments.length?' ('+comments.length+')':''}</span>
           <button class="add-comment-btn" onclick="openModal('${c.id}','${esc(c.name)}')">+ Ajouter</button>
         </div>
         ${cHtml}
-        ${cSum>0?`<div class="comment-total-tag">Sous-total : <b>${fmt(cSum)}</b></div>`:''}
+        ${hasAmounts?`<div class="comment-total-tag">Total calculé : <b>${fmt(cSum)}</b></div>`:''}
       </div>`;
     list.appendChild(div);
   });
 }
 
-function setAmount(key, catId, val) {
-  catData(key, catId).amount = parseFloat(val)||0;
-  persist();
-  renderSaisie();
+function setAmount(key,catId,val){
+  catData(key,catId).amount=parseFloat(val)||0;
+  persist();renderSaisie();
 }
 
-function delComment(key, catId, idx) {
-  const cd = catData(key, catId);
-  cd.comments.splice(idx, 1);
-  persist();
-  renderSaisie();
+// BUG FIX: suppression recalcule le total automatiquement
+function delComment(key,catId,idx){
+  const cd=catData(key,catId);
+  cd.comments.splice(idx,1);
+  // Recalcule le montant depuis les commentaires restants
+  const remaining=cd.comments.filter(cm=>parseFloat(cm.amount)>0);
+  if(remaining.length>0){
+    cd.amount=remaining.reduce((a,cm)=>a+(parseFloat(cm.amount)||0),0);
+  } else if(cd.comments.length===0){
+    cd.amount=0;
+  }
+  persist();renderSaisie();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ENREGISTRER MOIS
-// ─────────────────────────────────────────────────────────────────────────────
-async function saveMonth() {
-  const key = mkKey(curYear, curMonth);
+// ── ENREGISTRER ────────────────────────────────────────────────────────────
+async function saveMonth(){
+  // Avant de sauvegarder, synchroniser les totaux
+  const key=mkKey(curYear,curMonth);
+  if(months[key]){
+    Object.keys(months[key]).forEach(catId=>{
+      const cd=months[key][catId];
+      if(cd&&typeof cd==='object'){
+        cd.amount=computeTotal(cd);
+      }
+    });
+  }
   persist();
-  if (!conn.url || !conn.key) { toast('✓ Enregistré (pas de sync)'); return; }
-  const btn = document.getElementById('save-btn');
-  btn.textContent = '⏳ Envoi…'; btn.disabled = true;
-  try {
+  if(!conn.url||!conn.key){toast('✓ Enregistré (pas de sync)');return;}
+  const btn=document.getElementById('save-btn');
+  btn.textContent='⏳ Envoi…';btn.disabled=true;
+  try{
     await pushMonthRows(key);
-    const t = new Date().toLocaleTimeString('fr-CH',{hour:'2-digit',minute:'2-digit'});
-    document.getElementById('header-sub').textContent = '✓ Sync '+t;
+    const t=new Date().toLocaleTimeString('fr-CH',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('header-sub').textContent='✓ Sync '+t;
     toast('✓ Enregistré et synchronisé');
-  } catch(e) {
-    console.error(e);
-    toast('⚠ Sauvegardé local — sync : '+e.message);
+  }catch(e){
+    console.error(e);toast('⚠ Local OK — sync : '+e.message);
   }
-  btn.textContent = '☁ Enregistrer et synchroniser'; btn.disabled = false;
+  btn.textContent='☁ Enregistrer et synchroniser';btn.disabled=false;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// MODAL
-// ─────────────────────────────────────────────────────────────────────────────
-function openModal(catId, catName) {
-  modalCatId = catId;
-  document.getElementById('modal-cat-name').textContent = catName;
-  document.getElementById('m-shop').value = '';
-  document.getElementById('m-amount').value = '';
-  document.getElementById('m-note').value = '';
+// ── MODAL ──────────────────────────────────────────────────────────────────
+function openModal(catId,catName){
+  modalCatId=catId;
+  document.getElementById('modal-cat-name').textContent=catName;
+  document.getElementById('m-shop').value='';
+  document.getElementById('m-amount').value='';
+  document.getElementById('m-note').value='';
   document.getElementById('modal-overlay').classList.add('open');
-  setTimeout(() => document.getElementById('m-shop').focus(), 350);
+  setTimeout(()=>document.getElementById('m-shop').focus(),350);
 }
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); modalCatId=null; }
-function closeModalOut(e) { if (e.target===document.getElementById('modal-overlay')) closeModal(); }
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');modalCatId=null;}
+function closeModalOut(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
 
-function confirmAdd() {
-  const shop = document.getElementById('m-shop').value.trim();
-  if (!shop) { toast('❌ Saisir un magasin / lieu'); return; }
-  const amount = parseFloat(document.getElementById('m-amount').value)||0;
-  const note = document.getElementById('m-note').value.trim();
-  const key = mkKey(curYear, curMonth);
-  const cd = catData(key, modalCatId);
-  cd.comments.push({shop, amount, note});
-  if (amount > 0) {
-    const total = cd.comments.reduce((a,c)=>a+(parseFloat(c.amount)||0),0);
-    if (total > cd.amount) cd.amount = total;
-  }
-  persist();
-  closeModal();
-  renderSaisie();
+function confirmAdd(){
+  const shop=document.getElementById('m-shop').value.trim();
+  if(!shop){toast('❌ Saisir un magasin / lieu');return;}
+  const amount=parseFloat(document.getElementById('m-amount').value)||0;
+  const note=document.getElementById('m-note').value.trim();
+  const date=new Date().toISOString(); // date automatique
+  const key=mkKey(curYear,curMonth);
+  const cd=catData(key,modalCatId);
+  cd.comments.push({shop,amount,note,date});
+  // Recalcule le total
+  cd.amount=computeTotal(cd);
+  persist();closeModal();renderSaisie();
   toast('✓ Achat ajouté');
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HISTORIQUE
-// ─────────────────────────────────────────────────────────────────────────────
-function renderHistory() {
-  const keys = Object.keys(months).filter(k=>/^\d{4}-\d{2}$/.test(k)).sort().reverse();
-  const div = document.getElementById('history-list');
-  if (!keys.length) {
+// ── HISTORIQUE ─────────────────────────────────────────────────────────────
+function renderHistory(){
+  const keys=Object.keys(months).filter(k=>/^\d{4}-\d{2}$/.test(k)).sort().reverse();
+  const div=document.getElementById('history-list');
+  if(!keys.length){
     div.innerHTML='<div class="empty-state">Aucun mois enregistré.<br><br>Appuyez sur ↻ pour récupérer<br>les données synchronisées.</div>';
     return;
   }
-  div.innerHTML = '';
-  keys.forEach(k => {
-    const [y,m] = k.split('-');
-    const mIdx = parseInt(m,10)-1;
-    let spent = 0;
-    cfg.categories.forEach(c => { spent += catData(k,c.id).amount; });
-    const reste = cfg.budget - spent;
-    const pct = cfg.budget>0 ? Math.min(100,Math.round(spent/cfg.budget*100)) : 0;
-    const ok = reste >= 0;
-
-    let dRows = '';
-    cfg.categories.forEach(c => {
-      const cd = catData(k,c.id);
-      if (cd.amount===0 && cd.comments.length===0) return;
-      const cmHtml = cd.comments.map(cm =>
-        `<div class="hist-comment">· ${esc(cm.shop)}${cm.note?' ('+esc(cm.note)+')':''}${cm.amount>0?' — '+fmt(cm.amount):''}</div>`
-      ).join('');
-      dRows += `<div>
-        <div class="hist-cat-row">
-          <span style="display:flex;align-items:center;gap:6px">
-            <span style="width:8px;height:8px;border-radius:50%;background:${c.color};display:inline-block"></span>${esc(c.name)}
-          </span><b>${fmt(cd.amount)}</b>
-        </div>${cmHtml}</div>`;
+  div.innerHTML='';
+  keys.forEach(k=>{
+    const[y,m]=k.split('-');
+    const mIdx=parseInt(m,10)-1;
+    let spent=0;
+    cfg.categories.forEach(c=>{spent+=computeTotal(catData(k,c.id));});
+    const reste=cfg.budget-spent;
+    const pct=cfg.budget>0?Math.min(100,Math.round(spent/cfg.budget*100)):0;
+    const ok=reste>=0;
+    let dRows='';
+    cfg.categories.forEach(c=>{
+      const cd=catData(k,c.id);
+      const total=computeTotal(cd);
+      if(total===0&&cd.comments.length===0)return;
+      const cmHtml=(cd.comments||[]).map(cm=>{
+        const cAmt=parseFloat(cm.amount)||0;
+        const parts=[esc(cm.shop),cm.note?'('+esc(cm.note)+')':'',cAmt>0?fmt(cAmt):'',cm.date?'📅 '+fmtDate(cm.date):''].filter(Boolean).join(' ');
+        return `<div class="hist-comment">· ${parts}</div>`;
+      }).join('');
+      dRows+=`<div><div class="hist-cat-row">
+        <span style="display:flex;align-items:center;gap:6px">
+          <span style="width:8px;height:8px;border-radius:50%;background:${c.color};display:inline-block"></span>${esc(c.name)}
+        </span><b>${fmt(total)}</b>
+      </div>${cmHtml}</div>`;
     });
-
-    const uid = 'h'+k.replace('-','');
-    const card = document.createElement('div');
-    card.className = 'hist-card';
-    card.innerHTML = `
+    const uid='h'+k.replace('-','');
+    const card=document.createElement('div');
+    card.className='hist-card';
+    card.innerHTML=`
       <div class="hist-top">
         <div class="hist-month">${MONTHS[mIdx]} ${y}</div>
         <div class="hist-badge" style="background:${ok?'var(--green-dim)':'var(--red-dim)'};color:${ok?'var(--green)':'var(--red)'}">${ok?'✓ OK':'⚠ Dépassé'}</div>
@@ -790,30 +789,25 @@ function renderHistory() {
     div.appendChild(card);
   });
 }
-
-function togDetail(uid) {
-  const el = document.getElementById(uid);
-  const t = el.previousElementSibling;
+function togDetail(uid){
+  const el=document.getElementById(uid);
+  const t=el.previousElementSibling;
   el.classList.toggle('open');
-  t.textContent = el.classList.contains('open') ? '▾ Masquer' : '▸ Voir le détail';
+  t.textContent=el.classList.contains('open')?'▾ Masquer':'▸ Voir le détail';
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CONFIG
-// ─────────────────────────────────────────────────────────────────────────────
-function renderConfig() {
-  document.getElementById('cfg-budget').value = cfg.budget;
-  document.getElementById('cfg-currency').value = cfg.currency;
-  document.getElementById('cfg-url').value = conn.url||'';
-  document.getElementById('cfg-key').value = conn.key||'';
-  renderCats();
-  updateStatusBox();
+// ── CONFIG ─────────────────────────────────────────────────────────────────
+function renderConfig(){
+  document.getElementById('cfg-budget').value=cfg.budget;
+  document.getElementById('cfg-currency').value=cfg.currency;
+  document.getElementById('cfg-url').value=conn.url||'';
+  document.getElementById('cfg-key').value=conn.key||'';
+  renderCats();updateStatusBox();
 }
-
-function renderCats() {
-  const div = document.getElementById('cfg-cats'); div.innerHTML='';
-  cfg.categories.forEach((c,i) => {
-    const row = document.createElement('div'); row.className='cfg-cat-row';
+function renderCats(){
+  const div=document.getElementById('cfg-cats');div.innerHTML='';
+  cfg.categories.forEach((c,i)=>{
+    const row=document.createElement('div');row.className='cfg-cat-row';
     row.innerHTML=`
       <input type="color" class="color-dot" value="${c.color}" onchange="cfg.categories[${i}].color=this.value">
       <input class="cfg-cat-name" value="${esc(c.name)}" onchange="cfg.categories[${i}].name=this.value">
@@ -823,69 +817,64 @@ function renderCats() {
   });
   renderPctPill();
 }
-
-function renderPctPill() {
-  const total = cfg.categories.reduce((a,c)=>a+c.pct,0);
-  const el = document.getElementById('pct-pill');
-  el.textContent = `Total : ${total}% ${total===100?'✓':total>100?'— dépasse 100%':'— incomplet'}`;
-  el.className = 'pct-pill '+(total===100?'pct-ok':'pct-warn');
+function renderPctPill(){
+  const total=cfg.categories.reduce((a,c)=>a+c.pct,0);
+  const el=document.getElementById('pct-pill');
+  el.textContent=`Total : ${total}% ${total===100?'✓':total>100?'— dépasse 100%':'— incomplet'}`;
+  el.className='pct-pill '+(total===100?'pct-ok':'pct-warn');
 }
-
-function addCat() {
+function addCat(){
   cfg.categories.push({id:String(Date.now()),name:'Nouvelle',pct:0,color:COLORS[cfg.categories.length%COLORS.length]});
   renderCats();
 }
-function delCat(id) { cfg.categories=cfg.categories.filter(c=>String(c.id)!==String(id)); renderCats(); }
+function delCat(id){cfg.categories=cfg.categories.filter(c=>String(c.id)!==String(id));renderCats();}
 
-async function saveConfig() {
-  cfg.budget = parseFloat(document.getElementById('cfg-budget').value)||1000;
-  cfg.currency = document.getElementById('cfg-currency').value;
-  const u = document.getElementById('cfg-url').value.trim().replace(/\/$/,'');
-  const k = document.getElementById('cfg-key').value.trim();
-  if (u) conn.url = u;
-  if (k) conn.key = k;
+async function saveConfig(){
+  cfg.budget=parseFloat(document.getElementById('cfg-budget').value)||1000;
+  cfg.currency=document.getElementById('cfg-currency').value;
+  const u=document.getElementById('cfg-url').value.trim().replace(/\/$/,'');
+  const k=document.getElementById('cfg-key').value.trim();
+  if(u)conn.url=u; if(k)conn.key=k;
   persist();
-  if (conn.url && conn.key) {
-    try { await pushCfg(); toast('✓ Config sauvegardée et synchronisée'); }
-    catch(e) { toast('⚠ Sauvegardé local — sync échouée'); }
-  } else {
-    toast('✓ Configuration sauvegardée');
-  }
+  if(conn.url&&conn.key){
+    try{await pushCfg();toast('✓ Config sauvegardée et synchronisée');}
+    catch(e){toast('⚠ Sauvegardé local — sync échouée');}
+  }else toast('✓ Configuration sauvegardée');
   updateStatusBox();
 }
-
-function updateStatusBox() {
-  const el = document.getElementById('status-txt');
-  const box = document.getElementById('status-box');
-  if (conn.url && conn.key) {
-    el.textContent='✓ Connecté à Supabase'; el.style.color='var(--green)';
-    box.style.background='var(--green-dim)'; box.style.borderColor='rgba(0,217,126,0.3)';
-  } else {
-    el.textContent='Non connecté — données locales uniquement'; el.style.color='var(--blue)';
-    box.style.background='var(--blue-dim)'; box.style.borderColor='rgba(77,159,255,0.3)';
+function updateStatusBox(){
+  const el=document.getElementById('status-txt');
+  const box=document.getElementById('status-box');
+  if(conn.url&&conn.key){
+    el.textContent='✓ Connecté à Supabase';el.style.color='var(--green)';
+    box.style.background='var(--green-dim)';box.style.borderColor='rgba(0,217,126,0.3)';
+  }else{
+    el.textContent='Non connecté — données locales uniquement';el.style.color='var(--blue)';
+    box.style.background='var(--blue-dim)';box.style.borderColor='rgba(77,159,255,0.3)';
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// UTILS
-// ─────────────────────────────────────────────────────────────────────────────
-function fmt(n) { return parseFloat(n).toFixed(2)+' '+cfg.currency; }
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+// ── UTILS ──────────────────────────────────────────────────────────────────
+function fmt(n){return parseFloat(n).toFixed(2)+' '+cfg.currency;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function fmtDate(iso){
+  try{
+    const d=new Date(iso);
+    return d.getDate()+' '+MONTHS_SHORT[d.getMonth()]+' '+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  }catch(e){return '';}
+}
 let toastT;
-function toast(msg) {
-  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),3000);
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────────────────────────────────────
+// ── INIT ───────────────────────────────────────────────────────────────────
 hydrate();
-if (conn.url && conn.key) {
-  launchApp();
-  syncAll();
-} else {
-  document.getElementById('setup').style.display='flex';
+if(conn.url&&conn.key){
+  launchApp();syncAll();
+}else{
+  document.getElementById('setup').style.display='block';
   document.getElementById('app').style.display='none';
 }
 </script>
