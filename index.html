@@ -64,6 +64,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .track{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;}
 .fill{height:100%;border-radius:4px;transition:width .4s cubic-bezier(.4,0,.2,1);}
 .section-header{padding:6px 20px 10px;font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.6px;}
+/* ── BUDGET MOIS ── */
+.month-budget-bar{margin:0 16px 16px;background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.month-budget-label{flex:1;font-size:13px;color:var(--text2);}
+.month-budget-label b{display:block;font-size:11px;color:var(--text3);font-weight:400;margin-top:2px;}
+.month-budget-input{background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:8px 12px;font-size:17px;font-weight:700;color:var(--green);width:130px;text-align:right;-webkit-appearance:none;outline:none;}
+.month-budget-input:focus{border-color:var(--green);}
+.month-budget-custom{font-size:10px;color:var(--amber);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
 .cat-card{margin:0 16px 10px;background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);overflow:hidden;}
 .cat-top{display:flex;align-items:center;gap:12px;padding:14px 16px 10px;}
 .cat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -304,6 +311,13 @@ create policy "allow_all" on budget_months
         </div>
         <div class="track"><div class="fill" id="bp-fill" style="width:0%"></div></div>
       </div>
+      <div class="month-budget-bar">
+        <div class="month-budget-label">
+          Budget ce mois
+          <b id="month-budget-hint">Par défaut : global</b>
+        </div>
+        <input class="month-budget-input" id="month-budget-input" type="number" inputmode="decimal" min="0" step="10" placeholder="—" onchange="setMonthBudget(this.value)">
+      </div>
       <div class="section-header">Catégories</div>
       <div id="cat-list"></div>
       <button class="save-btn" id="save-btn" onclick="saveMonth()">☁ Enregistrer et synchroniser</button>
@@ -405,6 +419,7 @@ let cfg={
   ]
 };
 let months={};
+let monthBudgets={}; // { "2025-05": 1200 }
 let conn={url:'',key:''};
 let curYear=new Date().getFullYear();
 let curMonth=new Date().getMonth();
@@ -416,6 +431,7 @@ function persist(){
     localStorage.setItem('bf_conn',JSON.stringify(conn));
     localStorage.setItem('bf_cfg',JSON.stringify(cfg));
     localStorage.setItem('bf_months',JSON.stringify(months));
+    localStorage.setItem('bf_mbudgets',JSON.stringify(monthBudgets));
     localStorage.setItem('bf_nav',JSON.stringify({y:curYear,m:curMonth}));
   }catch(e){}
 }
@@ -424,6 +440,7 @@ function hydrate(){
     const c=localStorage.getItem('bf_conn'); if(c)conn=JSON.parse(c);
     const g=localStorage.getItem('bf_cfg'); if(g)cfg=JSON.parse(g);
     const mo=localStorage.getItem('bf_months'); if(mo)months=JSON.parse(mo);
+    const mb=localStorage.getItem('bf_mbudgets'); if(mb)monthBudgets=JSON.parse(mb);
     const nav=localStorage.getItem('bf_nav'); if(nav){const n=JSON.parse(nav);curYear=n.y;curMonth=n.m;}
   }catch(e){}
 }
@@ -461,21 +478,32 @@ async function pullCfg(){
 // ── SYNC MONTHS ────────────────────────────────────────────────────────────
 async function pushMonthRows(monthKey){
   const m=months[monthKey]||{};
+  const mb=monthBudgets[monthKey]||null;
   const rows=Object.keys(m).map(catId=>({
     month_key:monthKey, cat_id:catId,
     amount:m[catId].amount||0,
     comments:m[catId].comments||[],
     updated_at:new Date().toISOString()
   }));
+  // Stocker le budget du mois dans une ligne spéciale cat_id='__budget__'
+  if(mb&&mb>0){
+    rows.push({month_key:monthKey,cat_id:'__budget__',amount:mb,comments:[],updated_at:new Date().toISOString()});
+  }
   if(rows.length>0)await sbUpsert('budget_months',rows);
 }
 async function pullAllMonths(){
   const rows=await sbGet('budget_months','select=month_key,cat_id,amount,comments&order=month_key.asc');
   if(!Array.isArray(rows))return;
   const fresh={};
+  const freshBudgets={};
   rows.forEach(r=>{
     const mk=r.month_key;
     if(!mk||!/^\d{4}-\d{2}$/.test(mk))return;
+    if(String(r.cat_id)==='__budget__'){
+      // Budget personnalisé pour ce mois
+      if(parseFloat(r.amount)>0)freshBudgets[mk]=parseFloat(r.amount);
+      return;
+    }
     if(!fresh[mk])fresh[mk]={};
     fresh[mk][String(r.cat_id)]={
       amount:parseFloat(r.amount)||0,
@@ -483,6 +511,7 @@ async function pullAllMonths(){
     };
   });
   months=fresh;
+  monthBudgets=freshBudgets;
 }
 
 // ── SYNC COMPLET ───────────────────────────────────────────────────────────
@@ -554,6 +583,15 @@ function changeMonth(d){
 // ── DONNÉES ────────────────────────────────────────────────────────────────
 function mkKey(y,m){return y+'-'+String(m+1).padStart(2,'0');}
 
+// Budget effectif pour un mois (perso si defini, sinon global)
+function getBudget(key){return (monthBudgets[key]!=null && monthBudgets[key]>0)?monthBudgets[key]:cfg.budget;}
+function setMonthBudget(val){
+  const key=mkKey(curYear,curMonth);
+  const v=parseFloat(val);
+  if(!v||v<=0){delete monthBudgets[key];}else{monthBudgets[key]=v;}
+  persist();renderSaisie();
+}
+
 function catData(monthKey,catId){
   const id=String(catId);
   if(!months[monthKey])months[monthKey]={};
@@ -584,12 +622,31 @@ function renderSaisie(){
   document.getElementById('month-name').textContent=MONTHS[curMonth];
   document.getElementById('month-year').textContent=curYear;
 
+  // Budget effectif ce mois (personnalisé ou global)
+  const budget=getBudget(key);
+  const isCustom=monthBudgets[key]!=null&&monthBudgets[key]>0;
+
+  // Mettre à jour le champ budget du mois
+  const mbInput=document.getElementById('month-budget-input');
+  if(mbInput){
+    mbInput.value=isCustom?monthBudgets[key]:'';
+    mbInput.placeholder=isCustom?'':''+cfg.budget+' (défaut)';
+  }
+  const hint=document.getElementById('month-budget-hint');
+  if(hint){
+    if(isCustom){
+      hint.innerHTML='Budget personnalisé <span class="month-budget-custom">✦ Ce mois</span>';
+    }else{
+      hint.textContent='Budget par défaut — modifiez pour ce mois';
+    }
+  }
+
   let spent=0;
   cfg.categories.forEach(c=>{spent+=computeTotal(catData(key,c.id));});
-  const reste=cfg.budget-spent;
-  const pct=cfg.budget>0?Math.round(spent/cfg.budget*100):0;
+  const reste=budget-spent;
+  const pct=budget>0?Math.round(spent/budget*100):0;
 
-  document.getElementById('kpi-budget').textContent=fmt(cfg.budget);
+  document.getElementById('kpi-budget').textContent=fmt(budget);
   document.getElementById('kpi-spent').textContent=fmt(spent);
   const rEl=document.getElementById('kpi-reste');
   rEl.textContent=fmt(reste);rEl.className='kpi-value '+(reste>=0?'green':'red');
@@ -604,7 +661,7 @@ function renderSaisie(){
   list.innerHTML='';
   cfg.categories.forEach(c=>{
     const cd=catData(key,c.id);
-    const alloc=cfg.budget*c.pct/100;
+    const alloc=budget*c.pct/100;
     const s=computeTotal(cd); // BUG FIX: utilise computeTotal
     const r=alloc-s;
     const cp=alloc>0?Math.min(100,Math.round(s/alloc*100)):0;
@@ -688,6 +745,7 @@ function delComment(key,catId,idx){
 async function saveMonth(){
   // Avant de sauvegarder, synchroniser les totaux
   const key=mkKey(curYear,curMonth);
+  // Supprimer les entrées __budget__ des months locaux (géré séparément dans monthBudgets)
   if(months[key]){
     Object.keys(months[key]).forEach(catId=>{
       const cd=months[key][catId];
@@ -751,10 +809,12 @@ function renderHistory(){
   keys.forEach(k=>{
     const[y,m]=k.split('-');
     const mIdx=parseInt(m,10)-1;
+    const budget=getBudget(k);
+    const isCustomBudget=monthBudgets[k]!=null&&monthBudgets[k]>0;
     let spent=0;
     cfg.categories.forEach(c=>{spent+=computeTotal(catData(k,c.id));});
-    const reste=cfg.budget-spent;
-    const pct=cfg.budget>0?Math.min(100,Math.round(spent/cfg.budget*100)):0;
+    const reste=budget-spent;
+    const pct=budget>0?Math.min(100,Math.round(spent/budget*100)):0;
     const ok=reste>=0;
     let dRows='';
     cfg.categories.forEach(c=>{
@@ -781,7 +841,11 @@ function renderHistory(){
         <div class="hist-badge" style="background:${ok?'var(--green-dim)':'var(--red-dim)'};color:${ok?'var(--green)':'var(--red)'}">${ok?'✓ OK':'⚠ Dépassé'}</div>
       </div>
       <div class="hist-nums">
+        <span>Budget : <b>${fmt(budget)}${isCustomBudget?' ✦':''}</b></span>
         <span>Dépensé : <b>${fmt(spent)}</b></span>
+      </div>
+      <div class="hist-nums" style="margin-top:-4px">
+        <span></span>
         <span>Solde : <b style="color:${ok?'var(--green)':'var(--red)'}">${fmt(reste)}</b></span>
       </div>
       <div class="hist-bar"><div class="hist-fill" style="width:${pct}%;background:${ok?'var(--green)':'var(--red)'}"></div></div>
